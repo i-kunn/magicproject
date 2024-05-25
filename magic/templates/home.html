@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム画面</title>
+    <style>
+        body {
+            background-color: #e0f7fa; /* 明るい水色に背景色を設定 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            margin: auto;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .month {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+            color: black; /* テキストの色を黒に設定 */
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+        form {
+            margin: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none; /* リンクの下線を消す */
+            color: black; /* リンクのテキスト色を黒に設定 */
+        }
+        .calorie-overage { /* カロリー超過の日に適用するスタイル */
+            background-color: #ffcccc; /* 背景色を薄い赤色に設定 */
+        }
+    </style>
+</head>
+<body>
+    <div id="calendar"></div>
+
+    <div class="form-container">
+        <form action="{% url 'delete_confirmation' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">アカウントを削除する</button>
+        </form>
+        <form action="{% url 'edit_profile' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">プロフィール編集へ</button>
+        </form>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">ログアウトへ</button>
+        </form>
+        <form action="{% url 'add_meal' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">食事入力画面</button>
+        </form>
+    </div>
+
+    <script>
+        async function fetchCalorieData(year) {
+            try {
+                const response = await fetch(`/accounts/api/calories/${year}`);
+                if (!response.ok) {
+                    throw new Error('サーバーからのデータ取得に失敗しました。');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('カロリーデータの取得中にエラーが発生しました:', error);
+                return {}; // エラーが発生した場合は空のオブジェクトを返す
+            }
+        }
+
+        function generateCalendar(year, calorieData) {
+            const calendarContainer = document.getElementById('calendar');
+            for (let month = 0; month < 12; month++) {
+                const currentMonth = new Date(year, month, 1);
+                const monthDiv = document.createElement('div');
+                monthDiv.classList.add('month');
+                monthDiv.innerHTML = `<h2>${year}年 ${currentMonth.getMonth() + 1}月</h2>` + generateMonthCalendar(currentMonth, calorieData);
+                calendarContainer.appendChild(monthDiv);
+            }
+        }
+
+        function generateMonthCalendar(currentMonth, calorieData) {
+            const days = ['日', '月', '火', '水', '木', '金', '土'];
+            let html = '<table><thead><tr>';
+            days.forEach(day => { html += `<th>${day}</th>`; });
+            html += '</tr></thead><tbody>';
+
+            const firstDayOfWeek = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+            const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+            let dayCounter = 1;
+
+            for (let i = 0; i < 6 && dayCounter <= daysInMonth; i++) {
+                html += '<tr>';
+                for (let j = 0; j < 7; j++) {
+                    if ((i === 0 && j < firstDayOfWeek) || dayCounter > daysInMonth) {
+                        html += '<td></td>';
+                    } else {
+                        const dateString = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}-${dayCounter.toString().padStart(2, '0')}`;
+                        let cellClass = '';
+                        if (calorieData[dateString]) {
+                            console.log(`Date: ${dateString}, Data:`, calorieData[dateString]);
+                            if (calorieData[dateString].calories > calorieData[dateString].requiredCalories) {
+                                cellClass = 'calorie-overage';
+                            }
+                        } else {
+                            console.log(`No data for date: ${dateString}`);
+                        }
+                        html += `<td class="${cellClass}"><a href="/accounts/enter_meal_data/?selected_date=${dateString}">${dayCounter}</a></td>`;
+                        dayCounter++;
+                    }
+                }
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+            return html;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const year = 2024; // または動的に現在の年を設定
+            const calorieData = await fetchCalorieData(year);
+            console.log(calorieData);
+            generateCalendar(year, calorieData);
+        });
+    </script>
+</body>
+</html>
+

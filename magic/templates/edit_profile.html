@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール情報の概要画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}"> 
+
+</head>
+<body>
+    <h1>プロフィール情報の概要</h1>
+
+<!-- 現在のプロフィール情報の表示 -->
+<section>
+    <h2>現在登録されている情報</h2>
+    <ul>
+        <li><strong>ユーザー名:</strong> {{ username }}</li>
+        <li><strong>年齢:</strong> {{ user_profile.age }}</li>
+        <li><strong>メールアドレス:</strong> {{ email }}</li>
+        <li><strong>性別:</strong> {{ user_profile.get_gender_display }}</li>
+    </ul>
+</section>
+    <!-- アクションリンク -->
+    <section>
+        <h2>プロフィールの管理</h2>
+        <ul>
+            <li><a href="{% url 'update_profile' %}">プロフィール編集画面へ進む</a></li>
+            <li><a href="{% url 'change_password' %}">パスワード変更画面へ進む</a></li>
+            <li><a href="{% url 'home' %}">ホーム画面に戻る</a></li>
+        </ul>
+    </section>
+
+</body>
+</html>

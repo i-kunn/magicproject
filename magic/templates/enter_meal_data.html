@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食事内容履歴画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style8.css' %}">
+    <style>
+        .meal-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* 要素をコンテナの左端から始めて配置 */
+            margin: 20px 0;
+        }
+        .meal-form {
+            flex: 0 0 300px; /* 各要素の幅を300pxに固定 */
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* パディングとボーダーを幅に含める */
+        }
+    </style>
+</head>
+<body>
+    <h1>食事内容履歴画面</h1>
+    <h2>選択した日: {{ selected_date }}</h2>
+    <h2>合計カロリー: {{ total_calories }} kcal</h2>
+    <div class="meal-container">
+        {% for meal in meals %}
+            <div class="meal-form">
+                <p>日付: {{ meal.date|date:"Y-m-d" }}</p>
+                <p>食事の種類: {{ meal.get_meal_type_display }}</p>
+                <p>食事内容: {{ meal.food_name }}</p>
+                <p>カロリー: {{ meal.calories }} kcal</p>
+                <a href="{% url 'edit_meal' meal_id=meal.id %}">この食事を編集</a>
+                <a href="{% url 'delete_meal' meal.id %}">この食事を削除</a>
+            </div>
+        {% empty %}
+            <p>この日の記録はありません。</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'home' %}">ホーム画面に戻る</a>
+</body>
+</html>

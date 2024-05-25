@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>プロフィール更新画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style9.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f4f8; /* 淡い青みがかったグレー */
+        }
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            padding: 30px; /* パディングを増やす */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* 深みを増すための影 */
+            background-color: white; /* 本体とコントラストをつける白色の背景 */
+            border-radius: 8px; /* 角を丸める */
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"],
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px; /* 少し大きめのパディング */
+            margin: 12px 0;
+            border: 1px solid #ddd; /* 明るい色のボーダー */
+            border-radius: 5px; /* 角を丸める */
+            box-sizing: border-box; /* パディングとボーダーを幅に含める */
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #007bff; /* 青色の背景 */
+            color: white; /* 白い文字色 */
+            border: none; /* ボーダーを削除 */
+            cursor: pointer; /* カーソルをポインターに変更 */
+            transition: background-color 0.3s ease; /* 背景色のスムーズな変化 */
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3; /* ホバー時に暗くなる青色 */
+        }
+
+        .alert {
+            padding: 12px; /* より大きなパディング */
+            background-color: #fff3cd; /* 淡い黄色の背景 */
+            color: #856404; /* ダークイエローの文字色 */
+            border: 1px solid #ffeeba; /* 背景と合うボーダー */
+            margin-bottom: 20px;
+            border-radius: 4px; /* 少し丸みを帯びた角 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>プロフィール編集</h1>
+
+        <form action="{% url 'update_profile' %}" method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit">更新</button>
+        </form>
+        <a href="{% url 'home' %}">ホーム画面に戻る</a>
+    </div>
+</body>
+</html>
+

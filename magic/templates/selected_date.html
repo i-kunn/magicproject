@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Date</title>
+</head>
+<body>
+    <h1>選択した日にち</h1>
+    <form method="GET" action="{% url 'enter_meal_data' %}">
+        <label for="selected_date">選択した日にち:</label>
+        <input type="date" id="selected_date" name="selected_date">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

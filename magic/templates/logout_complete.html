@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログアウト完了画面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* フォントの設定 */
+            background-color: #d4edda; /* 背景色をライトグリーンに変更 */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 影の設定 */
+        }
+        h2 {
+            color: #333; /* 色 */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* ボタンの色 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px; /* ボタンの丸み */
+        }
+        a:hover {
+            background-color: #0056b3; /* ホバー時の色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ログアウトしました</h2>
+        <p>ご利用ありがとうございました。</p>
+        <a href="{% url 'login' %}">ログイン画面へ進む</a>
+    </div>
+</body>
+</html>
+
+

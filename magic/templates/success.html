@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食事の記録が完了しました</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* 読みやすいフォントを使用 */
+            background-color: #f4f4f4; /* 軽い背景色でリラックスした雰囲気を演出 */
+            color: #333; /* 良いコントラストのためのダークテキスト */
+            padding: 20px; /* 余白を加える */
+            text-align: center; /* テキストを中央揃えに */
+        }
+        h1 {
+            color: #4CAF50; /* サクセスメッセージを強調表示 */
+        }
+        p {
+            margin: 20px 0; /* 段落間のスペース */
+            font-size: 1.2rem; /* 読みやすいフォントサイズ */
+        }
+        a {
+            display: inline-block;
+            background-color: #4CAF50; /* ボタンのように見せる */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none; /* アンダーラインを消す */
+            border-radius: 5px; /* 角を丸くする */
+            transition: background-color 0.3s; /* ホバー時のトランジション */
+        }
+        a:hover {
+            background-color: #45a049; /* ホバー時の背景色を暗くする */
+        }
+    </style>
+</head>
+<body>
+    <h1>食事の記録が完了しました</h1>
+    <p>食事の記録が正常に保存されました。</p>
+    
+    <!-- 他の操作へのリンク -->
+    <a href="{% url 'home' %}">ホーム画面に戻る</a>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント削除中</title>
+    <style>
+        /* ボディ全体のスタイリング */
+        body {
+            font-family: 'Arial', sans-serif; /* 使用するフォント */
+            background-color: #f4f4f4; /* 背景色 */
+            color: #333; /* テキストの色 */
+            text-align: center; /* テキストを中央揃え */
+            padding-top: 50px; /* 上部に余白を設ける */
+        }
+
+        h1 {
+            color: #5a5a5a; /* 見出しの色 */
+        }
+
+        p {
+            font-size: 16px; /* パラグラフのフォントサイズ */
+        }
+
+        /* ローディングアニメーションのスタイル */
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%; /* 円形にする */
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite; /* アニメーションの設定 */
+            margin: 40px auto; /* 上下のマージンと自動で左右中央揃え */
+        }
+
+        /* アニメーションキーフレーム */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>アカウント削除中です...</h1>
+    <p>しばらくお待ちください。</p>
+    <div class="loader"></div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";  // リダイレクトURLを使用
+        }, 5000); // 5秒後にリダイレクト
+    </script>
+</body>
+</html>

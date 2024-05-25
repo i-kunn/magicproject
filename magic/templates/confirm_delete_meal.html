@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>食事データの削除確認画面</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #dc3545;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1em;
+            margin-bottom: 10px; /* 各段落間に少し余白を追加 */
+        }
+        form {
+            display: flex;
+            justify-content: space-between; /* ボタンを左右に配置 */
+            gap: 10px; /* ボタン間に隙間を追加 */
+        }
+        button, a {
+            display: inline-block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%; /* ボタン幅を半分以下にする */
+        }
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>食事データの削除確認</h1>
+        <p>本当にこの食事データを削除しますか？</p>
+        <p><strong>食事内容: {{ meal.food_name }}</strong></p>
+        <p><strong>カロリー: {{ meal.calories }} kcal</strong></p>
+        <form action="{% url 'delete_meal' meal.id %}" method="post">
+            {% csrf_token %}
+            <a href="{% url 'home' %}" class="btn-cancel">戻る</a>
+            <button type="submit" class="btn-delete">削除</button>
+            
+        </form>
+    </div>
+</body>
+</html>
+
+

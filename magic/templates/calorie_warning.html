@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カロリー超過警告画面</title>
+        {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style7.css' %}">
+</head>
+<body>
+    <h1>カロリー超過警告</h1>
+    <p>本日のカロリー摂取量が推奨値を超えてしまいました。健康的な食生活を維持するために、カロリー摂取を見直しましょう。</p>
+    <p>カロリー超過は健康リスクを高める可能性がありますので、次の食事では以下の点に注意してください：</p>
+    <ul>
+        <li>高カロリー食品の摂取を控える</li>
+        <li>野菜や果物を多く取り入れる</li>
+        <li>水分を十分に取る</li>
+    </ul>
+    <p>健康的な食事計画について詳しく知りたい場合は、栄養士のアドバイスを求めることをお勧めします。</p>
+    <div>
+        <a href="{% url 'home' %}">ホーム画面に戻る</a>
+    </div>
+</body>
+</html>

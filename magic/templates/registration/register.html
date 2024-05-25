@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録画面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+</head>
+<body>
+    <div class="flex-container">
+        <div class="form-container container">
+            <h2>新規登録画面</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="submit-button">登録</button>
+            </form>
+            <a href="{% url 'user_login' %}">既にアカウントをお持ちの方はこちら</a>
+        </div>
+
+        <div class="table-container container">
+            <h2>新規ユーザ登録時注意点</h2>
+            <table>
+                <tr><th>項目</th><th>注意点</th></tr>
+                <tr><td>ユーザー名</td><td>必須項目。半角アルファベット、半角数字、@/./+/-/_ で150文字以下にしてください。</td></tr>
+                <tr><td>メールアドレス</td><td>メールアドレスを正しく入力してください。</td></tr>
+                <tr><td>パスワード</td><td>最低8文字以上必要です。よく使われるパスワードにはできません。数字だけのパスワードにはできません。</td></tr>
+                <tr><td>パスワード(確認用)</td><td>確認のため、再度パスワードを入力してください。</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

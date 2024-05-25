@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アカウント削除完了画面</title>
+         {% load static %} <!-- 静的ファイルをロードするためのタグを追加 -->
+    <link rel="stylesheet" href="{% static 'css/style12.css' %}">
+</head>
+
+</head>
+<body>
+    <h1>アカウント削除完了</h1>
+    <p>アカウントの削除が完了しました。</p>
+    <p>またのご利用をお待ちしております。</p>
+</body>
+        <a href="{% url 'register' %}">新規登録画面に戻る</a>
+
+</html>
