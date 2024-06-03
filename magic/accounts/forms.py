@@ -88,6 +88,7 @@ class MealForm(forms.ModelForm):
         fields = ['meal_type', 'food_name', 'calories', 'eaten_at']
         widgets = {
             'meal_type': forms.Select(attrs={'title': '食事の種類'}),
+            'date': forms.DateInput(attrs={'type': 'date', 'title': '日付', 'placeholder': '日付を選択'}),
             'food_name': forms.TextInput(attrs={'placeholder': '食べた食品の名前を入力', 'title': '食事内容'}),
             'calories': forms.NumberInput(attrs={'title': 'カロリー', 'placeholder': 'カロリーを入力'}),
             'eaten_at': forms.DateTimeInput(attrs={'type': 'datetime-local', 'title': '摂取時間', 'placeholder': '食べた時間を入力'})
@@ -103,6 +104,8 @@ class MealEditForm(forms.ModelForm):
             'meal_type': '食事の種類',
             'food_name': '食事内容',  # ここでフィールドのラベルを変更
             'calories': 'カロリー',
+            'date': '日付',
+
         }
 FoodFormSet = inlineformset_factory(Meal, Food, fields=('name',), extra=1, can_delete=True)
 

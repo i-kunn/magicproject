@@ -16,6 +16,7 @@
     <h1>食事の履歴と編集</h1>
     <form method="post" action="{% url 'edit-complete' %}" id="edit-form">
         {% csrf_token %}
+        <p>{{ form.date.label_tag }} {{ form.date }}</p>
         <p>{{ form.meal_type.label_tag }} {{ form.meal_type }}</p>
         <p>{{ form.food_name.label_tag }} {{ form.food_name }}</p>
         <p>{{ form.calories.label_tag }} <input type="number" id="id_calories" name="calories" value="{{ form.calories.value }}" min="0" required></p>
