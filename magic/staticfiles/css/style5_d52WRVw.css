@@ -1,0 +1,34 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 清潔感のあるフォントを使用 */
+    background-color: #fff8e1; /* 柔らかなクリーム色の背景 */
+    color: #5d4037; /* 暖かみのある茶色でテキストを表示 */
+    padding: 40px 20px; /* 広めのパディングで内容を中心に */
+    text-align: center; /* テキストは中央揃えで */
+}
+
+h1 {
+    color: #ff9800; /* 明るいオレンジ色で元気な印象を */
+    margin-bottom: 0.5em; /* 下部の余白を設定 */
+}
+
+p {
+    font-size: 18px; /* より大きなフォントサイズ */
+    margin-bottom: 30px; /* 段落間の余白を広めに */
+}
+
+a {
+    display: inline-block;
+    background-color: #ff9800; /* ボタンに使う鮮やかなオレンジ */
+    color: white; /* 白字で読みやすく */
+    padding: 12px 24px; /* 余白をたっぷりと */
+    font-size: 16px; /* リンクのフォントサイズを大きくして読みやすく */
+    text-decoration: none; /* 下線を無くす */
+    border-radius: 10px; /* 角を丸くして柔らかい印象に */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ソフトな影で立体感をプラス */
+    transition: background-color 0.3s, transform 0.2s; /* 色と位置の変化にアニメーションを設定 */
+}
+
+a:hover {
+    background-color: #e65100; /* ホバー時は少し暗めのオレンジに */
+    transform: translateY(-2px); /* ホバー時に少し上に動かして反応を示す */
+}

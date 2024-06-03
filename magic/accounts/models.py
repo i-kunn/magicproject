@@ -7,8 +7,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     age = models.PositiveIntegerField(default=0,verbose_name='年齢')
     gender = models.CharField(max_length=1, choices=[('M', '男性'), ('F', '女性')], verbose_name='性別')
-    created_at = models.DateTimeField(auto_now_add=True) 
-    updated_at = models.DateTimeField(auto_now=True)     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f"{self.user.username} - {self.gender} - Age: {self.age}"
 
@@ -18,8 +18,8 @@ class Meal(models.Model):
     food_name = models.CharField(max_length=100, verbose_name='食事内容')
     calories = models.IntegerField(verbose_name='カロリー')
     date = models.DateField(verbose_name='日付')
-    eaten_at = models.DateTimeField(verbose_name='摂取時間')
-    id = models.AutoField(primary_key=True)  
+    eaten_at = models.TimeField(verbose_name='摂取時間')
+    id = models.AutoField(primary_key=True)
     MEAL_TYPES = [
         ('breakfast', '朝食'),
         ('lunch', '昼食'),
@@ -63,7 +63,7 @@ class RelatedData(models.Model):
 
 
 
-    
+
 
 
 

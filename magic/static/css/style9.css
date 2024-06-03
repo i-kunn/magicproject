@@ -1,0 +1,58 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* より洗練されたフォントに */
+    line-height: 1.8; /* 行間を少し広く */
+    padding: 30px; /* 余白を少し広く */
+    background-color: #f5f5f5; /* 背景色を少し明るく */
+}
+
+.container {
+    width: 50%; /* コンテナの幅を狭める */
+    margin: 0 auto; /* 中央寄せ */
+    padding: 30px; /* パディングを広く */
+    background-color: #fff; /* 背景色を白に */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* シャドウをより目立つように */
+    border-radius: 8px; /* 角を丸く */
+}
+
+form {
+    margin-top: 30px; /* フォーム上の余白を広く */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="submit"] {
+    border: 2px solid #ccc; /* 入力フィールドのボーダーを強調 */
+    border-radius: 4px; /* 入力フィールドの角を丸く */
+    padding: 12px; /* パディングを広く */
+    margin-top: 15px; /* 上マージンを調整 */
+}
+
+input[type="submit"] {
+    background-color: #4CAF50; /* 送信ボタンの背景色を変更 */
+    color: white; /* 送信ボタンの文字色を白に */
+    font-weight: bold; /* ボタンのフォントを太字に */
+    cursor: pointer; /* ホバー時のカーソルをポインターに */
+    transition: background-color 0.3s; /* 背景色の変更にアニメーションを設定 */
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049; /* ホバー時の背景色を変更 */
+}
+
+.alert {
+    background-color: #e7f5ff; /* アラートの背景色をより青みがかった色に */
+    color: #31708f; /* アラートの文字色を変更 */
+    border-color: #bce8f1; /* アラートのボーダー色を変更 */
+    border-radius: 4px; /* アラートの角を丸く */
+    padding: 15px; /* パディングを広く */
+    margin-bottom: 20px; /* 下マージンを調整 */
+}
+
+a {
+    color: #337ab7; /* リンクの色を変更 */
+    text-decoration: none; /* リンクの下線を消す */
+}
+
+a:hover {
+    text-decoration: underline; /* ホバー時に下線を表示 */
+}

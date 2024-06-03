@@ -25,14 +25,14 @@ class RegistrationForm(UserCreationForm):
         age = self.cleaned_data.get('age')
         if age is not None and age < 0:
             raise forms.ValidationError("年齢は0歳以上でなければなりません。")
-        return age  
+        return age
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError('同じユーザー名が既に登録済みです。')
         return username
-        
+
     def save(self, commit=True):
         user = super().save(commit=False)
         if commit:
@@ -58,7 +58,7 @@ class UserProfileForm(forms.ModelForm):
         if age is not None and age < 0:
             raise forms.ValidationError("年齢は0歳以上でなければなりません。")
         return age
-  
+
 
 # ログイン画面
 class LoginForm(AuthenticationForm):
@@ -73,7 +73,7 @@ class UserForm(forms.ModelForm):
             'required': 'メールアドレスを入力してください。',
         },
         label='メールアドレス'  # ラベルを日本語に変更
-    ) 
+    )
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -91,9 +91,9 @@ class MealForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date', 'title': '日付', 'placeholder': '日付を選択'}),
             'food_name': forms.TextInput(attrs={'placeholder': '食べた食品の名前を入力', 'title': '食事内容'}),
             'calories': forms.NumberInput(attrs={'title': 'カロリー', 'placeholder': 'カロリーを入力'}),
-            'eaten_at': forms.DateTimeInput(attrs={'type': 'datetime-local', 'title': '摂取時間', 'placeholder': '食べた時間を入力'})
+            'eaten_at': forms.TimeInput(attrs={'type': 'time', 'title': '摂取時間', 'placeholder': '食べた時間を入力'})
         }
-       
+
 
 
 class MealEditForm(forms.ModelForm):

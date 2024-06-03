@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-l%)m4oma+9m(-scwj3t&muw0@2zj5n$0aeo-x6g5xs$#!qb%ex
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','.pythonanywhere.com','kohei.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'kohei.pythonanywhere.com']
 
 
 # Application definition
@@ -76,9 +76,17 @@ WSGI_APPLICATION = "magic.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kohei$kohei',  # 使用するデータベース名
+        'USER': 'kohei',  # ユーザー名
+        'PASSWORD': 'qwertyuiopasdfghjklzxcvbnm',  # データベースのパスワード
+        'HOST': 'kohei.mysql.pythonanywhere-services.com',  # データベースホスト
+        'PORT': '', # MySQLのデフォルトポート3306は指定不要
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+
     }
 }
 
@@ -123,6 +131,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -193,4 +202,7 @@ SECRET_KEY = get_random_secret_key()
 try:
     from .local_settings import *
 except ImportError:
-    pass
+     ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'kohei.pythonanywhere.com']
+import logging
+logger = logging.getLogger(__name__)
+logger.debug("ALLOWED_HOSTS: %s", ALLOWED_HOSTS)

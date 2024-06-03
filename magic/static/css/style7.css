@@ -1,0 +1,52 @@
+/* ベーススタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #d9534f; /* 赤色で警告を強調 */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* リストのスタイル */
+ul {
+    list-style-type: disc;
+    margin-left: 40px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* リンクとボタンのスタイル */
+a {
+    color: #0275d8;
+    text-decoration: none;
+    border: 1px solid #0275d8;
+    padding: 8px 16px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+a:hover {
+    background-color: #0275d8;
+    color: #fff;
+}
+
+/* コンテナのスタイル */
+div {
+    text-align: center;
+    margin-top: 30px;
+}

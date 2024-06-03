@@ -1,0 +1,31 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* クリーンで読みやすいフォント */
+    background-color: #e3f2fd; /* 落ち着いた青の背景色でリラックスした雰囲気を作る */
+    color: #424242; /* ダークグレーのテキスト色でコントラストを提供 */
+    padding: 30px; /* コンテンツ周りの余白 */
+    text-align: center; /* コンテンツを中央揃え */
+}
+
+h1 {
+    color: #1e88e5; /* タイトルには鮮やかなブルーを使用して目立たせる */
+    margin-bottom: 20px; /* タイトル下の余白 */
+}
+
+p {
+    font-size: 18px; /* 読みやすいフォントサイズ */
+    margin-bottom: 30px; /* テキストの下の余白 */
+}
+
+a {
+    display: inline-block;
+    background-color: #1e88e5; /* リンクの背景色 */
+    color: white; /* リンクテキストの色 */
+    padding: 12px 24px;
+    text-decoration: none; /* 下線を消す */
+    border-radius: 4px; /* 角を少し丸める */
+    transition: background-color 0.3s; /* ホバー時の色の変化にアニメーションを加える */
+}
+
+a:hover {
+    background-color: #1565c0; /* ホバー時にはより濃いブルーに */
+}
