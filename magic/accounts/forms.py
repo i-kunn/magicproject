@@ -85,10 +85,9 @@ class UserForm(forms.ModelForm):
 class MealForm(forms.ModelForm):
     class Meta:
         model = Meal
-        fields = ['meal_type', 'date', 'food_name', 'calories', 'eaten_at']
+        fields = ['meal_type', 'food_name', 'calories', 'eaten_at']
         widgets = {
             'meal_type': forms.Select(attrs={'title': '食事の種類'}),
-            'date': forms.DateInput(attrs={'type': 'date', 'title': '日付', 'placeholder': '日付を選択'}),
             'food_name': forms.TextInput(attrs={'placeholder': '食べた食品の名前を入力', 'title': '食事内容'}),
             'calories': forms.NumberInput(attrs={'title': 'カロリー', 'placeholder': 'カロリーを入力'}),
             'eaten_at': forms.DateTimeInput(attrs={'type': 'datetime-local', 'title': '摂取時間', 'placeholder': '食べた時間を入力'})
@@ -102,7 +101,6 @@ class MealEditForm(forms.ModelForm):
         fields = ['meal_type', 'date', 'food_name', 'calories']  # 編集可能なフィールドを指定
         labels = {
             'meal_type': '食事の種類',
-            'date': '日付',
             'food_name': '食事内容',  # ここでフィールドのラベルを変更
             'calories': 'カロリー',
         }

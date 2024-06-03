@@ -418,7 +418,6 @@ def submit_meal_data(request: HttpRequest) -> HttpResponse:
         try:
             meal = Meal(
                 meal_type=meal_type,
-                date=date,
                 food_name=food_name,
                 calories=calories,
             )

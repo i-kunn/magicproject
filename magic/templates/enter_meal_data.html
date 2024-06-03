@@ -30,10 +30,10 @@
     <div class="meal-container">
         {% for meal in meals %}
             <div class="meal-form">
-                <p>日付: {{ meal.date|date:"Y-m-d" }}</p>
                 <p>食事の種類: {{ meal.get_meal_type_display }}</p>
                 <p>食事内容: {{ meal.food_name }}</p>
                 <p>カロリー: {{ meal.calories }} kcal</p>
+                <p>摂取した時間: {{ meal.eaten_at }} </p>
                 <a href="{% url 'edit_meal' meal_id=meal.id %}">この食事を編集</a>
                 <a href="{% url 'delete_meal' meal.id %}">この食事を削除</a>
             </div>

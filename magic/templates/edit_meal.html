@@ -19,7 +19,6 @@
         <p>{{ form.meal_type.label_tag }} {{ form.meal_type }}</p>
         <p>{{ form.food_name.label_tag }} {{ form.food_name }}</p>
         <p>{{ form.calories.label_tag }} <input type="number" id="id_calories" name="calories" value="{{ form.calories.value }}" min="0" required></p>
-        <p>{{ form.date.label_tag }} {{ form.date }}</p>
         <label for="eaten_at">{{ form.eaten_at.label }}</label> 
         <input type="datetime-local" id="eaten_at" name="eaten_at" value="{{ form.eaten_at.value|date:'Y-m-d\TH:i' }}" required>
         <div class="button-container">
