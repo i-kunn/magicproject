@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* ベースのスタイリング */
 body {
     font-family: 'Arial', sans-serif;
@@ -72,78 +72,3 @@ a {
 a:hover {
     text-decoration: underline;
 }
-=======
-/* ベースのスタイリング */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* 子要素を縦に配置 */
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-h2 {
-    color: #333;
-}
-
-/* フォームのスタイリング */
-form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 300px;
-    order: 1; /* フォームを先に表示 */
-}
-
-form p {
-    margin: 15px 0;
-}
-
-/* 入力フィールドのスタイリング */
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* ボタンのスタイリング */
-button {
-    background-color: #5C67F2;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #4a54e1;
-}
-
-/* リンクのスタイリング */
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #5C67F2;
-    text-decoration: none;
-    order: 2; /* リンクをフォームの後に表示 */
-}
-
-a:hover {
-    text-decoration: underline;
-}
->>>>>>> f38b6e6c9a31d16ca504e440c4332464d529a267
