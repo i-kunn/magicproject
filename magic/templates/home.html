@@ -71,15 +71,15 @@
     <div class="form-container">
         <form action="{% url 'delete_confirmation' %}" method="post">
             {% csrf_token %}
-            <button type="submit">アカウントを削除する</button>
+            <button type="submit">アカウント削除</button>
         </form>
         <form action="{% url 'edit_profile' %}" method="post">
             {% csrf_token %}
-            <button type="submit">プロフィール編集へ</button>
+            <button type="submit">プロフィール編集</button>
         </form>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit">ログアウトへ</button>
+            <button type="submit">ログアウト</button>
         </form>
         <form action="{% url 'add_meal' %}" method="post">
             {% csrf_token %}

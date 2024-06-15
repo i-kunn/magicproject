@@ -15,8 +15,9 @@ from django.utils.dateparse import parse_date
 from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_http_methods
 
-from .forms import LoginForm, MealEditForm, MealForm, RegistrationForm, UserProfileForm, UserForm
+from .forms import LoginForm, MealForm, RegistrationForm, UserProfileForm, UserForm
 from .models import Meal, UserProfile, RelatedData
+from django.http import HttpResponseRedirect
 
 logger = logging.getLogger('accounts')
 # 最初のページ
@@ -83,7 +84,7 @@ def calculate_target_calories(age, gender):
             return 1800
         else:
             return 1600
-        
+
 # アカウント削除確認画面
 @login_required
 def delete_confirmation(request):
@@ -125,7 +126,7 @@ def delete_completed(request):
         return render(request, 'delete_completed.html')
     else:
         return redirect('home')
- # ログアウト画面 
+ # ログアウト画面
 @login_required
 def user_logout(request):
     logout(request)
@@ -156,27 +157,27 @@ def user_login(request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
+
 # 食事追加画面
 @login_required
 def add_meal(request):
     user_profile = UserProfile.objects.get(user=request.user)
     target_calories = calculate_target_calories(user_profile.age, user_profile.gender)
-    
-    total_calories = 0  # total_calories を初期化
-    selected_date = date.today()
+
+    today = date.today()  # 今日の日付を取得
+    selected_date = today  # デフォルト日付を今日に設定
 
     if request.method == 'POST':
         meal_form = MealForm(request.POST)
         if meal_form.is_valid():
             meal = meal_form.save(commit=False)
             meal.user = request.user
-            selected_date = meal_form.cleaned_data.get('date', date.today())
+            selected_date = meal_form.cleaned_data.get('date', today)  # フォームから日付を取得
             meal.date = selected_date
-
             try:
                 with transaction.atomic():
                     meal.save()
-
+                    # 選択された日付での食事を取得してカロリーを計算
                     meals_on_date = Meal.objects.filter(date=selected_date, user=request.user)
                     total_calories = sum(meal.calories for meal in meals_on_date)
 
@@ -185,12 +186,11 @@ def add_meal(request):
                     else:
                         return redirect('success')
             except Exception as e:
-                messages.error(request,f'食事の保存中にエラーが発生しました: {e}')
+                messages.error(request, f'食事の保存中にエラーが発生しました: {e}')
         else:
             messages.error(request, 'フォームの送信に失敗しました。以下のエラーを修正してください')
-            selected_date = meal_form.cleaned_data.get('date', date.today())
     else:
-        meal_form = MealForm(initial={'date': selected_date})
+        meal_form = MealForm(initial={'date': today})  # 初期値として今日の日付を設定
 
     meals_on_date = Meal.objects.filter(date=selected_date, user=request.user)
     total_calories = sum(meal.calories for meal in meals_on_date)
@@ -198,9 +198,11 @@ def add_meal(request):
     context = {
         'meal_form': meal_form,
         'target_calories': target_calories,
-        'total_calories': total_calories
+        'total_calories': total_calories,
+        'selected_date': selected_date
     }
     return render(request, 'add_meal.html', context)
+
 
 # カロリー警告画面
 @login_required
@@ -302,60 +304,52 @@ def edit_meal(request, meal_id):
 # 食事編集完了画面
 @login_required
 def edit_complete(request):
+    meal_id = request.session.get('updated_meal_id')
+    if not meal_id:
+        messages.error(request, "更新された食事情報の取得に失敗しました。")
+        return redirect('home')
+
+    try:
+        meal = Meal.objects.get(id=meal_id, user=request.user)
+    except Meal.DoesNotExist:
+        messages.error(request, "該当する食事が見つかりません。")
+        return redirect('home')
+
     if request.method == 'POST':
-        meal_id = request.session.get('updated_meal_id')
-        if not meal_id:
-            messages.error(request, "更新された食事情報の取得に失敗しました。もう一度お試しください。")
-            return redirect('home')
-
-        try:
-            meal = Meal.objects.get(id=meal_id, user=request.user)
-        except Meal.DoesNotExist:
-            messages.error(request, "該当する食事が見つかりません。")
-            return redirect('home')
-
         form = MealForm(request.POST, instance=meal)
         if form.is_valid():
             form.save()
-
-            # 変更後のデータを取得
             meal.refresh_from_db()  # データベースから最新のデータを取得
-            new_data = {
-                'meal_type': meal.meal_type,
-                'food_name': meal.food_name,
-                'calories': meal.calories,
-                'eaten_at': meal.eaten_at,
-                'date': meal.date
-            }
+            messages.success(request, "食事情報が更新されました。")
 
-            # 更新されたデータをすべての関連データに反映させる
+            # 関連データの更新
             related_data_qs = RelatedData.objects.filter(meal=meal)
             for related_data in related_data_qs:
                 related_data.additional_info = '更新された情報'
                 related_data.save()
 
-            messages.success(request, "食事情報と関連データが更新されました。")
+            # redirect_url の生成
+            redirect_url = reverse('enter_meal_data') + f'?selected_date={meal.date.isoformat()}'
+
+            # 完了画面をレンダリングし、履歴画面へのリンクを提供
             return render(request, 'edit_complete.html', {
-                'new_data': new_data,
+                'new_data': {
+                    'meal_type': meal.meal_type,
+                    'food_name': meal.food_name,
+                    'calories': meal.calories,
+                    'eaten_at': meal.eaten_at,
+                    'date': meal.date
+                },
                 'meal': meal,
-                'messages': messages.get_messages(request)
+                'redirect_url': redirect_url
             })
         else:
-            messages.error(request, "フォームの入力にエラーがあります。もう一度お試しください。")
+            messages.error(request, "フォームの入力にエラーがあります。")
             return render(request, 'edit_meal.html', {'form': form, 'meal': meal})
     else:
-        meal_id = request.session.get('updated_meal_id')
-        if not meal_id:
-            messages.error(request, "更新された食事情報の取得に失敗しました。もう一度お試しください。")
-            return redirect('home')
+        form = MealForm(instance=meal)
+        return render(request, 'edit_meal.html', {'meal': meal, 'form': form})
 
-        try:
-            meal = Meal.objects.get(id=meal_id, user=request.user)
-            form = MealForm(instance=meal)
-            return render(request, 'edit_meal.html', {'meal': meal, 'form': form})
-        except Meal.DoesNotExist:
-            messages.error(request, "該当する食事が見つかりません。")
-            return redirect('home')
 # 食事削除確認
 @login_required
 def confirm_delete_meal(request, meal_id):
@@ -397,6 +391,7 @@ def enter_meal_data(request):
 
     meals = Meal.objects.filter(date=selected_date, user=request.user) if selected_date else []
     total_calories = sum(meal.calories for meal in meals)  # 合計カロリーを計算
+
 
     return render(request, 'enter_meal_data.html', {
         'selected_date': selected_date,

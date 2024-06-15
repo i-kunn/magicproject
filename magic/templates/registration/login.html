@@ -5,6 +5,24 @@
     <title>ログイン画面</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+    <style>
+        /* フォーム内の各パラグラフ（入力フィールドを含む）のスタイリング */
+        form p {
+            width: 100%; /* 幅をフォームの幅に合わせる */
+            padding: 0 10px; /* 左右のパディングを追加 */
+            box-sizing: border-box; /* パディングを幅に含める */
+        }
+
+        input[type="text"], input[type="password"], button {
+            width: 100%; /* 入力フィールドとボタンの幅を親要素に合わせる */
+            box-sizing: border-box; /* パディングとボーダーを幅に含める */
+        }
+
+        /* ボタンのマージン調整 */
+        button {
+            margin-top: 10px; /* ボタンの上マージンを設定 */
+        }
+    </style>
 </head>
 <body>
     <h2>ログイン画面</h2>
@@ -12,8 +30,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">登録</button>
+        <button type="submit">ログイン</button>
         <a href="{% url 'register' %}">新規登録画面に戻る</a>
     </form>
 </body>
 </html>
+

@@ -85,7 +85,7 @@ class UserForm(forms.ModelForm):
 class MealForm(forms.ModelForm):
     class Meta:
         model = Meal
-        fields = ['meal_type', 'food_name', 'calories', 'eaten_at']
+        fields = ['meal_type', 'food_name', 'date' ,'calories', 'eaten_at']
         widgets = {
             'meal_type': forms.Select(attrs={'title': '食事の種類'}),
             'date': forms.DateInput(attrs={'type': 'date', 'title': '日付', 'placeholder': '日付を選択'}),

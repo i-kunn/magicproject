@@ -46,7 +46,7 @@
 
     <!-- 削除手順の説明とモーダルを開くボタン -->
     <button onclick="showModal()">アカウント削除を確認</button>
-    
+
     <form id="deleteForm" action="{% url 'delete_account' %}" method="post" style="display:none;">
         {% csrf_token %}
         <button type="submit" id="submitBtn">アカウントを削除する</button>
@@ -72,8 +72,8 @@
             hideModal();
         });
     </script>
-    
+
     <!-- 他のオプションへのリンク -->
-    <p>アカウントを削除したくない場合は、<a href="{% url 'home' %}">ホームページに戻る</a></p>
+    <p>アカウントを削除したくない場合は、<a href="{% url 'home' %}">ホーム画面に戻る</a></p>
 </body>
 </html>

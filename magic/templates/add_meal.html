@@ -20,7 +20,7 @@
         <h2>{{ current_date|date:"Y年m月d日" }}</h2>
         <div class="calories-counter">
             <div class="current-calories">
-                合計カロリー: {{ total_calories }} kcal / 必要なカロリー: <span class="required-calories">{{ target_calories }}</span> kcal
+                あなたの必要なカロリーは<span class="required-calories">{{ target_calories }}</span> kcalになります
             </div>
         </div>
         <form method="post" action="{% url 'add_meal' %}">
@@ -32,7 +32,7 @@
                 <option value="dinner">夕食</option>
            </select>
            <label for="date">日付:</label>
-           <input type="date" id="date" name="date" required>
+           <input type="date" id="date" name="date" value="{{ selected_date|date:'Y-m-d' }}" required>
            <label for="food_name">食事内容:</label>
            <input type="text" id="food_name" name="food_name" required>
            <label for="eaten_at">摂取時間:</label>
