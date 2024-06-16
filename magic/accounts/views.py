@@ -290,6 +290,7 @@ def selected_date(request):
     selected_date = request.GET.get('selected_date')
     # 選択された日付をコンテキストに渡してテンプレートをレンダリングする
     return render(request, 'selected_date.html', {'selected_date': selected_date})
+# 食事編集画面
 @login_required
 def edit_meal(request, meal_id):
     meal = get_object_or_404(Meal, id=meal_id, user=request.user)
@@ -308,31 +309,6 @@ def edit_meal(request, meal_id):
             messages.error(request, "フォームの入力にエラーがあります。")
     return render(request, 'edit_meal.html', {'form': form, 'meal': meal, 'meal_history_url': meal_history_url})
 
-# @login_required
-# def edit_meal(request, meal_id):
-#     try:
-#         meal = Meal.objects.get(id=meal_id, user=request.user)
-#         request.session['updated_meal_id'] = meal.id
-#         form = MealForm(instance=meal)
-#         meal_history_url = reverse('enter_meal_data')  # URLを生成
-#         # レンダリング時にmeal_history_urlを渡す
-#         return render(request, 'edit_meal.html', {'form': form, 'meal': meal, 'meal_history_url': meal_history_url})
-#     except Meal.DoesNotExist:
-#         messages.error(request, "該当する食事が見つかりません。")
-#         return redirect('home')
-
-# # 食事編集画面
-# @login_required
-# def edit_meal(request, meal_id):
-    
-#     try:
-#         meal = Meal.objects.get(id=meal_id, user=request.user)
-#         request.session['updated_meal_id'] = meal.id
-#         form = MealForm(instance=meal)
-#         return render(request, 'edit_meal.html', {'form': form, 'meal': meal})
-#     except Meal.DoesNotExist:
-#         messages.error(request, "該当する食事が見つかりません。")
-#         return redirect('home')
 # 食事編集完了画面
 @login_required
 def edit_complete(request):
@@ -398,6 +374,7 @@ def confirm_delete_meal(request, meal_id):
 @login_required
 def delete_meal(request, meal_id):
     meal = get_object_or_404(Meal, id=meal_id, user=request.user)
+    request.session['last_viewed_date'] = meal.date.isoformat()  
     if request.method == 'POST':
         meal.delete()
         messages.success(request, "食事データが削除されました。")
