@@ -24,6 +24,11 @@
             border: 1px solid #ccc; /* 枠線 */
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影を付ける */
             border-radius: 8px; /* 角の丸み */
+            text-align: center; /* テキストを中央揃え */
+        }
+
+        h2 {
+            margin: 0 0 20px 0; /* 上下の余白を設定 */
         }
 
         form p {
@@ -58,8 +63,8 @@
     </style>
 </head>
 <body>
-    <h2>ログイン画面</h2>
     <form method="post">
+        <h2>ログイン画面</h2>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">ログイン</button>
@@ -67,6 +72,7 @@
     </form>
 </body>
 </html>
+
 
 
 
