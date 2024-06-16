@@ -381,7 +381,7 @@ def delete_meal(request, meal_id):
         return redirect('delete_meal_complete')  # 削除完了画面にリダイレクト
     return redirect('confirm_delete_meal', meal_id=meal_id)
 
-
+# 食事削除完了画面
 @login_required
 def delete_meal_complete(request):
     last_viewed_date = request.session.get('last_viewed_date')  # セッションから日付を取得
@@ -390,12 +390,6 @@ def delete_meal_complete(request):
     else:
         redirect_url = reverse('enter_meal_data')  # デフォルトフォールバック
     return render(request, 'delete_meal_complete.html', {'redirect_url': redirect_url})
-
-# @login_required
-# def delete_meal_complete(request):
-#     redirect_url = reverse('enter_meal_data')  # 'meal_history' は食事内容履歴画面のURL名です
-#     return render(request, 'delete_meal_complete.html', {'redirect_url': redirect_url})
-
 
 # 追加したデータを確認する画面
 @login_required
