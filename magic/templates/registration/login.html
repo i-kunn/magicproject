@@ -16,6 +16,13 @@
             background-color: #f0f0f0; /* 背景色を設定 */
         }
 
+        /* フォームとタイトルを囲むコンテナ */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         /* フォームスタイリング */
         form {
             width: 300px; /* フォームの幅を設定 */
@@ -24,55 +31,56 @@
             border: 1px solid #ccc; /* 枠線 */
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影を付ける */
             border-radius: 8px; /* 角の丸み */
+            margin-top: 20px; /* タイトルとの間隔 */
         }
 
+        /* フォームの中のテキスト配置 */
         form p {
-            width: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
             text-align: left; /* テキストを左寄せ */
         }
 
         input[type="text"], input[type="password"], button {
-            width: 100%;
+            width: 100%; /* 全幅 */
             box-sizing: border-box;
-            padding: 10px; /* 入力フィールドのパディングを追加 */
-            margin-bottom: 10px; /* マージンボトムを追加 */
+            padding: 10px; /* パディング */
+            margin-bottom: 10px; /* 下マージン */
         }
 
         button {
             background-color: #4CAF50; /* ボタンの背景色 */
             color: white; /* テキストの色 */
-            border: none; /* 枠線をなくす */
-            cursor: pointer; /* ホバー時のカーソルをポインターに */
+            border: none; /* 枠線なし */
+            cursor: pointer; /* ホバー時のカーソル */
         }
 
         button:hover {
-            background-color: #45a049; /* ホバー時の背景色 */
+            background-color: #45a049; /* ホバー時の色変更 */
         }
 
         a {
-            display: block; /* リンクをブロック要素に */
-            text-align: center; /* テキスト中央揃え */
+            display: block; /* ブロック表示 */
+            text-align: center; /* 中央揃え */
             margin-top: 10px; /* 上マージン */
         }
-        
+
         h2 {
-            text-align: center; /* 中央揃え */
-            margin-bottom: 20px; /* 下マージン */
+            margin: 0; /* マージンリセット */
         }
     </style>
 </head>
 <body>
-    <h2>ログイン画面</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">ログイン</button>
-        <a href="{% url 'register' %}">新規登録画面へ戻る</a>
-    </form>
+    <div class="form-container">
+        <h2>ログイン画面</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">ログイン</button>
+            <a href="{% url 'register' %}">新規登録画面へ戻る</a>
+        </form>
+    </div>
 </body>
 </html>
+
 
 
 
