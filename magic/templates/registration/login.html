@@ -7,19 +7,20 @@
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
     <style>
         /* 画面全体のスタイリング */
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* 垂直方向の中央寄せ */
-            height: 100vh; /* ビューポートの高さに合わせる */
-            margin: 0;
+        body, html {
+            height: 100%; /* 全画面の高さを使用 */
+            margin: 0; /* デフォルトのマージンをリセット */
+            display: flex; /* フレックスボックスを適用 */
+            justify-content: center; /* 水平方向の中央揃え */
+            align-items: center; /* 垂直方向の中央揃え */
         }
 
         /* フォームスタイリング */
         form {
             width: 300px; /* フォームの幅を設定 */
-            margin: auto; /* 水平中央寄せ */
-            margin-top: auto; /* フォームを下に押し下げる */
+            padding: 20px; /* フォーム内の余白 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影を付ける */
+            background-color: white; /* 背景色 */
         }
 
         form p {
@@ -48,5 +49,6 @@
     </form>
 </body>
 </html>
+
 
 
