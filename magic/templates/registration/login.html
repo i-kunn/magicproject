@@ -13,14 +13,17 @@
             display: flex; /* フレックスボックスを適用 */
             justify-content: center; /* 水平方向の中央揃え */
             align-items: center; /* 垂直方向の中央揃え */
+            background-color: #f0f0f0; /* 背景色を設定 */
         }
 
         /* フォームスタイリング */
         form {
             width: 300px; /* フォームの幅を設定 */
             padding: 20px; /* フォーム内の余白 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影を付ける */
             background-color: white; /* 背景色 */
+            border: 1px solid #ccc; /* 枠線 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 影を付ける */
+            border-radius: 8px; /* 角の丸み */
         }
 
         form p {
@@ -32,10 +35,25 @@
         input[type="text"], input[type="password"], button {
             width: 100%;
             box-sizing: border-box;
+            padding: 10px; /* 入力フィールドのパディングを追加 */
+            margin-bottom: 10px; /* マージンボトムを追加 */
         }
 
         button {
-            margin-top: 10px;
+            background-color: #4CAF50; /* ボタンの背景色 */
+            color: white; /* テキストの色 */
+            border: none; /* 枠線をなくす */
+            cursor: pointer; /* ホバー時のカーソルをポインターに */
+        }
+
+        button:hover {
+            background-color: #45a049; /* ホバー時の背景色 */
+        }
+
+        a {
+            display: block; /* リンクをブロック要素に */
+            text-align: center; /* テキスト中央揃え */
+            margin-top: 10px; /* 上マージン */
         }
     </style>
 </head>
@@ -49,6 +67,7 @@
     </form>
 </body>
 </html>
+
 
 
 
