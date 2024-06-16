@@ -6,27 +6,40 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
     <style>
-        /* フォーム内の各パラグラフ（入力フィールドを含む）のスタイリング */
+        /* 画面全体のスタイリング */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直方向の中央寄せ */
+            height: 100vh; /* ビューポートの高さに合わせる */
+            margin: 0;
+        }
+
+        /* フォームスタイリング */
+        form {
+            width: 300px; /* フォームの幅を設定 */
+            margin: auto; /* 水平中央寄せ */
+            margin-top: auto; /* フォームを下に押し下げる */
+        }
+
         form p {
-            width: 100%; /* 幅をフォームの幅に合わせる */
-            padding: 0 10px; /* 左右のパディングを追加 */
-            box-sizing: border-box; /* パディングを幅に含める */
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         input[type="text"], input[type="password"], button {
-            width: 100%; /* 入力フィールドとボタンの幅を親要素に合わせる */
-            box-sizing: border-box; /* パディングとボーダーを幅に含める */
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* ボタンのマージン調整 */
         button {
-            margin-top: 10px; /* ボタンの上マージンを設定 */
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <h2>ログイン画面</h2>
-
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -35,4 +48,5 @@
     </form>
 </body>
 </html>
+
 
