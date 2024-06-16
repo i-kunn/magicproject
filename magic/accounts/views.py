@@ -18,6 +18,7 @@ from django.views.decorators.http import require_http_methods
 from .forms import LoginForm, MealForm, RegistrationForm, UserProfileForm, UserForm
 from .models import Meal, UserProfile, RelatedData
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 logger = logging.getLogger('accounts')
 # 最初のページ
@@ -290,17 +291,31 @@ def selected_date(request):
     # 選択された日付をコンテキストに渡してテンプレートをレンダリングする
     return render(request, 'selected_date.html', {'selected_date': selected_date})
 
-# 食事編集画面
 @login_required
 def edit_meal(request, meal_id):
     try:
         meal = Meal.objects.get(id=meal_id, user=request.user)
         request.session['updated_meal_id'] = meal.id
         form = MealForm(instance=meal)
-        return render(request, 'edit_meal.html', {'form': form, 'meal': meal})
+        meal_history_url = reverse('enter_meal_data')  # URLを生成
+        # レンダリング時にmeal_history_urlを渡す
+        return render(request, 'edit_meal.html', {'form': form, 'meal': meal, 'meal_history_url': meal_history_url})
     except Meal.DoesNotExist:
         messages.error(request, "該当する食事が見つかりません。")
         return redirect('home')
+
+# # 食事編集画面
+# @login_required
+# def edit_meal(request, meal_id):
+    
+#     try:
+#         meal = Meal.objects.get(id=meal_id, user=request.user)
+#         request.session['updated_meal_id'] = meal.id
+#         form = MealForm(instance=meal)
+#         return render(request, 'edit_meal.html', {'form': form, 'meal': meal})
+#     except Meal.DoesNotExist:
+#         messages.error(request, "該当する食事が見つかりません。")
+#         return redirect('home')
 # 食事編集完了画面
 @login_required
 def edit_complete(request):
@@ -350,13 +365,14 @@ def edit_complete(request):
         form = MealForm(instance=meal)
         return render(request, 'edit_meal.html', {'meal': meal, 'form': form})
 
-# 食事削除確認
+
+# 食事削除確認画面
 @login_required
 def confirm_delete_meal(request, meal_id):
-    # meal_idに基づいてMealオブジェクトを取得し、存在しない場合はエラーメッセージを表示しリダイレクトする
     meal = get_object_or_404(Meal, id=meal_id, user=request.user)
+    enter_meal_data_url = reverse('enter_meal_data')  # 'enter_meal_data' はそのビューへのURL名です
+    return render(request, 'confirm_delete_meal.html', {'meal': meal, 'enter_meal_data_url': enter_meal_data_url})
 
-    return render(request, 'confirm_delete_meal.html', {'meal': meal})
 # 食事削除画面
 @login_required
 def delete_meal(request, meal_id):
@@ -367,10 +383,13 @@ def delete_meal(request, meal_id):
         return redirect('delete_meal_complete')  # 削除完了画面にリダイレクト
     return redirect('confirm_delete_meal', meal_id=meal_id)
 
-# 食事削除完了画面
+
+
 @login_required
 def delete_meal_complete(request):
-    return render(request, 'delete_meal_complete.html')
+    redirect_url = reverse('enter_meal_data')  # 'meal_history' は食事内容履歴画面のURL名です
+    return render(request, 'delete_meal_complete.html', {'redirect_url': redirect_url})
+
 
 # 追加したデータを確認する画面
 @login_required

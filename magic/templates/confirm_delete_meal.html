@@ -65,7 +65,7 @@
         <p><strong>カロリー: {{ meal.calories }} kcal</strong></p>
         <form action="{% url 'delete_meal' meal.id %}" method="post">
             {% csrf_token %}
-            <a href="{% url 'home' %}" class="btn-cancel">戻る</a>
+            <a href="{{ enter_meal_data_url }}" class="btn-cancel">戻る</a>
             <button type="submit" class="btn-delete">削除</button>
             
         </form>

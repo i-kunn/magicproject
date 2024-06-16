@@ -24,7 +24,7 @@
         <label for="eaten_at">{{ form.eaten_at.label }}</label>
         <input type="time" id="eaten_at" name="eaten_at" value="{{ form.eaten_at.value|time:'H:i' }}" required>
         <div class="button-container">
-            <button type="button" onclick="window.location.href='{% url 'home' %}';" class="btn btn-home">ホーム画面へ戻る</button>
+            <button type="button" onclick="window.location.href='{{ meal_history_url }}';" class="btn btn-home">食事内容履歴画面へ戻る</button>
             <button type="submit" class="btn btn-update">更新</button>
         </div>
     </form>
