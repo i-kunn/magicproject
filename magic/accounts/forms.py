@@ -26,6 +26,12 @@ class RegistrationForm(UserCreationForm):
         if age is not None and age < 0:
             raise forms.ValidationError("年齢は0歳以上でなければなりません。")
         return age
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('このメールアドレスは既に登録されています。')
+        return email
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
